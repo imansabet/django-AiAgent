@@ -16,11 +16,14 @@ class Document(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at =  models.DateTimeField(auto_now=True)  
 
-def save(self, *args, **kwargs):
-    if self.active:
-        if self.activated_at is None:
-            self.activated_at = timezone.now()
-    else:
-        self.activated_at = None
+    def __str__(self):
+        return f"<Document: {self.title}>"
 
-    super().save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        if self.active:
+            if self.activated_at is None:
+                self.activated_at = timezone.now()
+        else:
+            self.activated_at = None
+
+        super().save(*args, **kwargs)
