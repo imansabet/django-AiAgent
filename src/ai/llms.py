@@ -7,11 +7,13 @@ def get_openai_api_key():
 
 
 
-def get_openai_model(model="gpt-4o-mini"):
+def get_openai_model(model="gpt-4o"):
+    if model is None:
+        model = "gpt-4o-mini"
     return ChatOpenAI(
         model=model,
         temperature=0,
         max_retries=2,
-        api_key=settings.OPENAI_API_KEY,
+        api_key=get_openai_api_key(),
     )
 
